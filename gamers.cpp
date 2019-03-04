@@ -2,8 +2,8 @@
 #include <cmath>
 using namespace std;
 int num;
-int **matr1;
-void wide(int size, int zerox, int zeroy, int startx, int starty){
+
+void wide(int **matr1, int size, int zerox, int zeroy, int startx, int starty){
     if (size==2){
         num++;
         if (zerox==startx && zeroy==starty){
@@ -38,40 +38,40 @@ void wide(int size, int zerox, int zeroy, int startx, int starty){
             matr1[startx+leng][starty+leng-1]=num;
             matr1[startx+leng-1][starty+leng]=num;
             matr1[startx+leng][starty+leng]=num;
-            wide(leng,zerox,zeroy, startx, starty);
-            wide(leng,startx+leng,starty+leng-1, startx+leng,starty);
-            wide(leng,startx+leng-1,starty+leng,startx,starty+leng);
-            wide(leng,startx+leng,starty+leng,startx+leng,starty+leng);
+            wide(matr1,leng,zerox,zeroy, startx, starty);
+            wide(matr1,leng,startx+leng,starty+leng-1, startx+leng,starty);
+            wide(matr1,leng,startx+leng-1,starty+leng,startx,starty+leng);
+            wide(matr1,leng,startx+leng,starty+leng,startx+leng,starty+leng);
         }else{ 
 			if( zerox<startx+leng && zeroy>=starty+leng){
 				num++;
 				matr1[startx+leng][starty+leng-1]=num;
 				matr1[startx+leng-1][starty+leng-1]=num;
 				matr1[startx+leng][starty+leng]=num;
-				wide(leng,zerox,zeroy,startx,starty+leng);
-				wide(leng,startx+leng,starty+leng-1,startx+leng,starty);
-				wide(leng,startx+leng-1,starty+leng-1, startx,starty);
-				wide(leng,startx+leng,starty+leng,startx+leng,starty+leng);
+				wide(matr1,leng,zerox,zeroy,startx,starty+leng);
+				wide(matr1,leng,startx+leng,starty+leng-1,startx+leng,starty);
+				wide(matr1,leng,startx+leng-1,starty+leng-1, startx,starty);
+				wide(matr1,leng,startx+leng,starty+leng,startx+leng,starty+leng);
 			}else{ 
 				if( zerox>=startx+leng && zeroy<starty+leng){
 					num++;
 					matr1[startx+leng-1][starty+leng-1]=num;
 					matr1[startx+leng-1][starty+leng]=num;
 					matr1[startx+leng][starty+leng]=num;
-					wide(leng,zerox,zeroy, startx+leng,starty);
-					wide(leng,startx+leng-1,starty+leng-1, startx,starty);
-					wide(leng,startx+leng-1,starty+leng,startx,starty+leng);
-					wide(leng,startx+leng,starty+leng,startx+leng,starty+leng);
+					wide(matr1,leng,zerox,zeroy, startx+leng,starty);
+					wide(matr1,leng,startx+leng-1,starty+leng-1, startx,starty);
+					wide(matr1,leng,startx+leng-1,starty+leng,startx,starty+leng);
+					wide(matr1,leng,startx+leng,starty+leng,startx+leng,starty+leng);
 				}else{ 
 					if( zerox>=startx+leng && zeroy>=starty+leng){
 						num++;
 						matr1[startx+leng][starty+leng-1]=num;
 						matr1[startx+leng-1][starty+leng-1]=num;
 						matr1[startx+leng-1][starty+leng]=num;
-						wide(leng,zerox,zeroy,startx+leng,starty+leng);
-						wide(leng,startx+leng,starty+leng-1,startx+leng,starty);
-						wide(leng,startx+leng-1,starty+leng-1, startx,starty);
-						wide(leng,startx+leng-1,starty+leng,startx,starty+leng);
+						wide(matr1,leng,zerox,zeroy,startx+leng,starty+leng);
+						wide(matr1,leng,startx+leng,starty+leng-1,startx+leng,starty);
+						wide(matr1,leng,startx+leng-1,starty+leng-1, startx,starty);
+						wide(matr1,leng,startx+leng-1,starty+leng,startx,starty+leng);
 					}
 				}
 			}
@@ -86,17 +86,18 @@ int main()
     x=x-1;
     y=y-1;
     size=pow(2,n);
-    matr1=new int* [size];
-    for(int i=0; i<size;i++){
-		matr1[i]= new int[size];
-	}
-    wide(size,x,y,0,0);
+    int **matr1 = new int *[size];
+    for (int i = 0; i < size; i++)
+        matr1[i] = new int[size];
+
+    wide(matr1,size,x,y,0,0);
     for(int i=0; i<size;i++){
 		for(int j=0; i<size;j++){
-			cout<<matr[i][j]<<" ";
+			cout<<matr1[i][j]<<" ";
 		}
 		cout<< endl;
 	}
-    
+	for (int i = 0; i < size; i++)
+        delete[] matr1[i];
     return 0; 
 }
