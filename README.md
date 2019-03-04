@@ -222,4 +222,5 @@ XX      X       XX       X
 2 2 5 5
 
 РЕШЕНИЕ: gamers.cpp, asd5.py
+
 ВНИМАНИЕ! gamers.cpp НЕ РАБОТАЕТ!!
