@@ -19,6 +19,7 @@ Files *.py are simply the same that are on the C++
 #Пример
 
 Исходные данные: 
+
 3
 
 6 3
